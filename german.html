@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>German Setting — VortexFoods™ Wiki</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="topbar"></div>
+
+<div class="wiki-layout">
+  <nav id="sidebar"></nav>
+  <main id="content" class="fade-in">
+
+    <div class="page-eyebrow">Stories · Setting 1</div>
+    <div class="page-title">German Setting</div>
+
+    <div class="clearfix">
+      <div class="infobox">
+        <div class="infobox-title">German Setting</div>
+        <table>
+          <tr><td>Stories</td><td>19</td></tr>
+          <tr><td>Location</td><td>German university city</td></tr>
+          <tr><td>Primary chars</td><td>Julia Böhm, Bahar Esfahani</td></tr>
+          <tr><td>Status</td><td><span class="badge b-alive">Ongoing</span></td></tr>
+        </table>
+      </div>
+
+      <p>The German Setting is the primary and longest-running storyline of the VortexFoods™ universe. It centres on a cast of characters living in or around a German university city. Stories follow multiple perspectives — students, professionals, retail workers, and aristocrats — in a world where VortexFoods™ shrinkies are a mundane fact of everyday life.</p>
+      <p>The setting begins with <em>Take-out</em>, which introduces the world through the eyes of both <a href="characters.html#julia-bohm">Julia Böhm</a> and a shrunken perspective character named Felix. Over the course of 19 stories, the cast expands to include Vortex employees, aristocrats, Italian diplomats, paramilitary operatives, and British nobility.</p>
+
+      <h2 class="sh">Key Characters</h2>
+      <div class="char-grid" id="key-chars"></div>
+    </div>
+
+    <h2 class="sh">All Stories</h2>
+    <div id="story-list"></div>
+
+  </main>
+</div>
+
+<footer>COPYRIGHT © VORTEXFOODSTM 2020–2025 &bull; UNOFFICIAL FAN WIKI &bull; ALL CHARACTERS FICTIONAL &bull; ALL CHARACTERS 18+</footer>
+
+<script src="data.js"></script>
+<script>
+
+function init() {
+  renderNav('german.html');
+
+  const keyIds = ['julia-bohm','bahar-esfahani','laura-giesler','anna-wendland','alessia-santoro','johanna-von-falkenau'];
+  const grid = document.getElementById('key-chars');
+  keyIds.forEach(id => {
+    const c = germanCharacters.find(c => c.id === id);
+    if (c) grid.innerHTML += makeCharCard(c);
+  });
+
+  const list = document.getElementById('story-list');
+  germanStories.forEach(s => list.innerHTML += makeStoryCard(s, 'German Setting'));
+}
+
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,676 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+  --red: #c0392b;
+  --dark-red: #8b1a12;
+  --cream: #f5f0e8;
+  --paper: #ede8dc;
+  --dark: #100d0a;
+  --mid: #1e1510;
+  --ink: #2c2218;
+  --gold: #b8860b;
+  --faint: #c8c2b4;
+  --muted: rgba(245,240,232,0.45);
+  --border: rgba(192,57,43,0.22);
+  --t: 0.2s ease;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--dark);
+  color: var(--cream);
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 17px;
+  line-height: 1.72;
+  min-height: 100vh;
+}
+
+/* ─── TOPBAR ─────────────────────────────────── */
+#topbar {
+  background: var(--dark-red);
+  height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem;
+  gap: 0.2rem;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  border-bottom: 2px solid var(--red);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.5);
+}
+
+.topbar-brand {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 19px;
+  letter-spacing: 0.12em;
+  color: var(--cream);
+  text-decoration: none;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.topbar-brand svg {
+  width: 22px;
+  height: 22px;
+  animation: spin 20s linear infinite;
+  filter: drop-shadow(0 0 6px rgba(192,57,43,0.8));
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.topbar-nav {
+  display: flex;
+  gap: 0;
+  align-items: center;
+}
+
+.topbar-nav a {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.55);
+  text-decoration: none;
+  padding: 0 0.75rem;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid transparent;
+  transition: all var(--t);
+}
+
+.topbar-nav a:hover { color: var(--cream); }
+.topbar-nav a.active {
+  color: var(--red);
+  border-bottom-color: var(--red);
+}
+
+/* ─── LAYOUT ─────────────────────────────────── */
+.wiki-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: calc(100vh - 44px);
+}
+
+/* ─── SIDEBAR ────────────────────────────────── */
+#sidebar {
+  background: var(--mid);
+  border-right: 1px solid var(--border);
+  position: sticky;
+  top: 44px;
+  height: calc(100vh - 44px);
+  overflow-y: auto;
+  padding: 1rem 0;
+}
+
+#sidebar::-webkit-scrollbar { width: 3px; }
+#sidebar::-webkit-scrollbar-thumb { background: var(--red); }
+
+.sb-search {
+  padding: 0.6rem 0.9rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0.5rem;
+}
+
+.sb-search input {
+  width: 100%;
+  background: rgba(0,0,0,0.35);
+  border: 1px solid var(--border);
+  color: var(--cream);
+  padding: 0.35rem 0.6rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  border-radius: 2px;
+  outline: none;
+  transition: border-color var(--t);
+}
+.sb-search input::placeholder { color: rgba(245,240,232,0.25); }
+.sb-search input:focus { border-color: var(--red); }
+
+.sb-section {
+  margin-bottom: 0.25rem;
+}
+
+.sb-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--red);
+  padding: 0.5rem 0.9rem 0.2rem;
+  display: block;
+}
+
+.sb-link {
+  display: block;
+  padding: 0.28rem 0.9rem 0.28rem 1.5rem;
+  color: var(--faint);
+  text-decoration: none;
+  font-size: 0.85rem;
+  border-left: 2px solid transparent;
+  transition: all var(--t);
+}
+
+.sb-link:hover, .sb-link.active {
+  color: var(--cream);
+  background: rgba(192,57,43,0.1);
+  border-left-color: var(--red);
+}
+
+.sb-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0.4rem 0.9rem;
+}
+
+/* ─── CONTENT ────────────────────────────────── */
+#content {
+  padding: 2.5rem 3rem;
+  background: #120e09;
+  min-width: 0;
+}
+
+/* ─── PAGE HEADER ────────────────────────────── */
+.page-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 0.3rem;
+}
+
+.page-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  letter-spacing: 0.06em;
+  line-height: 1;
+  color: var(--cream);
+  border-bottom: 2px solid var(--red);
+  padding-bottom: 0.6rem;
+  margin-bottom: 1.6rem;
+}
+
+/* ─── SECTION HEADS ──────────────────────────── */
+h2.sh {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: 0.07em;
+  color: var(--red);
+  border-left: 4px solid var(--red);
+  padding-left: 0.7rem;
+  margin: 2rem 0 0.8rem;
+}
+
+h3.sub {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--cream);
+  margin: 1.2rem 0 0.3rem;
+}
+
+p { margin-bottom: 0.85rem; color: var(--faint); }
+p strong { color: var(--cream); }
+p a { color: var(--red); text-decoration: none; }
+p a:hover { text-decoration: underline; }
+
+/* ─── INFOBOX ────────────────────────────────── */
+.infobox {
+  float: right;
+  width: 250px;
+  background: var(--mid);
+  border: 1px solid rgba(192,57,43,0.35);
+  border-top: 4px solid var(--red);
+  margin: 0 0 1.5rem 2rem;
+  font-size: 0.84rem;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.infobox-title {
+  background: var(--dark-red);
+  padding: 0.55rem 0.9rem;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+  color: var(--cream);
+  text-align: center;
+}
+
+.infobox table { width: 100%; border-collapse: collapse; }
+.infobox td {
+  padding: 0.28rem 0.75rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  vertical-align: top;
+  font-size: 0.83rem;
+}
+.infobox td:first-child {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  color: var(--red);
+  text-transform: uppercase;
+  width: 42%;
+}
+.infobox td:last-child { color: var(--cream); }
+
+.infobox-meas {
+  padding: 0.4rem 0.75rem;
+  border-top: 1px solid var(--border);
+}
+
+.infobox-meas-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  color: var(--red);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.3rem;
+}
+
+.clearfix::after { content:''; display:table; clear:both; }
+
+/* ─── BADGES ─────────────────────────────────── */
+.badge {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 2px;
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.b-alive  { background: rgba(39,174,96,0.2); color: #5deb8a; border: 1px solid #27ae60; }
+.b-dec    { background: rgba(192,57,43,0.2); color: #e87070; border: 1px solid var(--red); }
+.b-shrunk { background: rgba(184,134,11,0.2); color: #f0c040; border: 1px solid var(--gold); }
+.b-unk    { background: rgba(100,100,100,0.25); color: #aaa; border: 1px solid #555; }
+
+/* ─── CALLOUT ────────────────────────────────── */
+.callout {
+  background: rgba(192,57,43,0.09);
+  border: 1px solid rgba(192,57,43,0.3);
+  border-left: 4px solid var(--red);
+  border-radius: 2px;
+  padding: 0.9rem 1.1rem;
+  margin: 1rem 0 1.4rem;
+  font-size: 0.91rem;
+  color: var(--faint);
+}
+.callout strong { color: var(--cream); }
+
+/* ─── QUOTE ──────────────────────────────────── */
+.lore-quote {
+  border-left: 3px solid var(--red);
+  margin: 1.5rem 0;
+  padding: 0.75rem 1.1rem;
+  background: rgba(192,57,43,0.06);
+  font-style: italic;
+  color: var(--faint);
+  font-size: 1.02rem;
+}
+.lore-quote cite {
+  display: block;
+  margin-top: 0.4rem;
+  font-style: normal;
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--red);
+  text-transform: uppercase;
+}
+
+/* ─── TABLES ─────────────────────────────────── */
+.wiki-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.8rem 0;
+  font-size: 0.87rem;
+}
+.wiki-table th {
+  background: var(--dark-red);
+  color: var(--cream);
+  padding: 0.45rem 0.75rem;
+  text-align: left;
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.wiki-table td {
+  padding: 0.4rem 0.75rem;
+  border-bottom: 1px solid rgba(192,57,43,0.1);
+  color: var(--faint);
+  vertical-align: top;
+}
+.wiki-table tr:hover td { background: rgba(192,57,43,0.06); }
+.wiki-table td:first-child { color: var(--cream); }
+.wiki-table a { color: var(--red); text-decoration: none; }
+.wiki-table a:hover { text-decoration: underline; }
+
+/* ─── CHARACTER GRID ─────────────────────────── */
+.char-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.char-card {
+  background: var(--mid);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--red);
+  padding: 0.85rem;
+  text-decoration: none;
+  display: block;
+  transition: all var(--t);
+  border-radius: 2px;
+}
+
+.char-card:hover {
+  border-color: var(--red);
+  background: rgba(192,57,43,0.09);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 18px rgba(192,57,43,0.18);
+}
+
+.cc-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.04em;
+  color: var(--cream);
+  margin-bottom: 0.2rem;
+  line-height: 1.2;
+}
+
+.cc-nat {
+  font-family: 'Space Mono', monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.1em;
+  color: var(--red);
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.cc-role {
+  font-size: 0.8rem;
+  color: var(--faint);
+  font-style: italic;
+  margin-bottom: 0.35rem;
+}
+
+/* ─── STORY CARDS ────────────────────────────── */
+.story-card {
+  background: var(--mid);
+  border: 1px solid var(--border);
+  border-left: 5px solid var(--red);
+  padding: 0.9rem 1.1rem;
+  margin-bottom: 0.7rem;
+  border-radius: 0 2px 2px 0;
+  transition: all var(--t);
+}
+
+.story-card:hover {
+  background: rgba(192,57,43,0.09);
+  border-left-color: #ff6b5a;
+  transform: translateX(3px);
+}
+
+.sc-meta {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--red);
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
+}
+
+.sc-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 0.05em;
+  color: var(--cream);
+  margin-bottom: 0.2rem;
+}
+
+.sc-chars {
+  font-size: 0.78rem;
+  color: rgba(192,57,43,0.85);
+  font-family: 'Space Mono', monospace;
+  margin-bottom: 0.35rem;
+  font-size: 0.76rem;
+}
+
+.sc-desc { font-size: 0.87rem; color: var(--faint); }
+
+/* ─── TABS ───────────────────────────────────── */
+.tab-bar {
+  display: flex;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 1.4rem;
+  gap: 0;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  padding: 0.45rem 1rem;
+  color: var(--faint);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all var(--t);
+}
+.tab-btn:hover { color: var(--cream); }
+.tab-btn.active { color: var(--red); border-bottom-color: var(--red); }
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ─── HERO (home only) ───────────────────────── */
+.hero {
+  background: linear-gradient(140deg, #0a0704 0%, #180a06 50%, #221008 100%);
+  padding: 4rem 2rem 3.5rem;
+  text-align: center;
+  border-bottom: 3px solid var(--red);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 70%, rgba(192,57,43,0.15) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.hero-logo {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.2rem;
+}
+.hero-logo svg {
+  width: 100%;
+  height: 100%;
+  animation: spin 18s linear infinite;
+  filter: drop-shadow(0 0 22px rgba(192,57,43,0.65));
+}
+
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  letter-spacing: 0.08em;
+  line-height: 1;
+  color: var(--cream);
+  text-shadow: 0 0 50px rgba(192,57,43,0.4);
+}
+
+.hero h1 sup {
+  font-size: 0.33em;
+  color: var(--red);
+  vertical-align: super;
+}
+
+.hero-tag {
+  margin-top: 0.8rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: var(--red);
+  text-transform: uppercase;
+}
+
+.hero-desc {
+  max-width: 540px;
+  margin: 1.2rem auto 0;
+  color: rgba(245,240,232,0.5);
+  font-style: italic;
+  font-size: 0.97rem;
+}
+
+/* ─── SECTION CARDS (home) ───────────────────── */
+.section-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.9rem;
+  margin-top: 1rem;
+}
+
+.section-card {
+  background: var(--mid);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--red);
+  padding: 1.1rem;
+  text-decoration: none;
+  display: block;
+  transition: all var(--t);
+  border-radius: 2px;
+}
+
+.section-card:hover {
+  border-color: var(--red);
+  background: rgba(192,57,43,0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(192,57,43,0.2);
+}
+
+.sc-icon {
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.sc-card-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 0.06em;
+  color: var(--cream);
+  margin-bottom: 0.3rem;
+}
+
+.sc-card-desc {
+  font-size: 0.83rem;
+  color: var(--faint);
+}
+
+/* ─── CHAR PROFILE ───────────────────────────── */
+.char-profile-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.4rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: var(--faint);
+}
+
+.char-profile-nav a {
+  color: var(--red);
+  text-decoration: none;
+}
+
+.char-profile-nav a:hover { text-decoration: underline; }
+
+/* ─── STORY APPEARANCES LIST ─────────────────── */
+.story-appear-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.story-appear-list li {
+  background: rgba(192,57,43,0.12);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 0.15rem 0.55rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.04em;
+  color: var(--faint);
+}
+
+/* ─── VICTIMS LIST ───────────────────────────── */
+.victims-list {
+  list-style: none;
+  padding: 0;
+}
+
+.victims-list li {
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--faint);
+  font-size: 0.88rem;
+}
+
+.victims-list li::before {
+  content: '⚰ ';
+  color: var(--red);
+  font-size: 0.75em;
+}
+
+/* ─── FOOTER ─────────────────────────────────── */
+footer {
+  background: var(--dark);
+  border-top: 1px solid var(--border);
+  padding: 1.5rem 2rem;
+  text-align: center;
+  font-family: 'Space Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.15em;
+  color: rgba(245,240,232,0.25);
+}
+
+/* ─── FADE IN ────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.fade-in { animation: fadeIn 0.3s ease both; }
+
+/* ─── RESPONSIVE ─────────────────────────────── */
+@media (max-width: 820px) {
+  .wiki-layout { grid-template-columns: 1fr; }
+  #sidebar { position: relative; height: auto; top: 0; }
+  #content { padding: 1.5rem; }
+  .infobox { float: none; width: 100%; margin: 0 0 1.5rem; }
+  .topbar-nav { display: none; }
+}

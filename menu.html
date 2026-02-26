@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Vortex Menu — VortexFoods™ Wiki</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+
+/* ── MENU PAGE STYLES ─────────────────────────────── */
+
+.menu-hero {
+  background: linear-gradient(160deg, #0a0502 0%, #1a0800 40%, #240c04 100%);
+  border-bottom: 4px solid var(--red);
+  padding: 2.8rem 2rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 80%, rgba(192,57,43,0.18) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.menu-hero-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  color: var(--red);
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+
+.menu-hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+  letter-spacing: 0.1em;
+  color: var(--cream);
+  line-height: 1;
+  text-shadow: 0 0 40px rgba(192,57,43,0.35);
+}
+
+.menu-hero-title span { color: var(--red); }
+
+.menu-hero-sub {
+  font-style: italic;
+  color: rgba(245,240,232,0.45);
+  font-size: 0.9rem;
+  margin-top: 0.75rem;
+  max-width: 540px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.menu-disclaimer {
+  font-family: 'Space Mono', monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.12em;
+  color: rgba(192,57,43,0.55);
+  text-transform: uppercase;
+  margin-top: 1rem;
+  border-top: 1px solid var(--border);
+  padding-top: 0.75rem;
+}
+
+/* ── MENU BOARD ───────────────────────────────────── */
+
+.menu-board {
+  background: var(--dark);
+  padding: 2rem 1.5rem;
+}
+
+.menu-section-header {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: 0.12em;
+  color: var(--cream);
+  background: var(--dark-red);
+  padding: 0.45rem 1.1rem;
+  margin: 2rem 0 1rem;
+  border-left: 5px solid var(--red);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  position: relative;
+}
+
+.menu-section-header::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--red);
+}
+
+.menu-section-header .sec-icon {
+  font-size: 1.2rem;
+  filter: grayscale(0.2);
+}
+
+.menu-section-desc {
+  font-size: 0.82rem;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 1rem;
+  padding-left: 0.2rem;
+  border-left: 2px solid rgba(192,57,43,0.3);
+  padding-left: 0.8rem;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.menu-grid.wide {
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+}
+
+.menu-item {
+  background: var(--mid);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 0.9rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+  transition: background var(--t), border-color var(--t);
+}
+
+.menu-item:hover {
+  background: rgba(192,57,43,0.07);
+  border-color: rgba(192,57,43,0.4);
+}
+
+.menu-item-info { flex: 1; min-width: 0; }
+
+.menu-item-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+  color: var(--cream);
+  margin-bottom: 0.15rem;
+}
+
+.menu-item-desc {
+  font-size: 0.8rem;
+  color: var(--faint);
+  line-height: 1.45;
+}
+
+.menu-item-cal {
+  font-family: 'Space Mono', monospace;
+  font-size: 7.5px;
+  letter-spacing: 0.1em;
+  color: rgba(192,57,43,0.6);
+  text-transform: uppercase;
+  margin-top: 0.3rem;
+}
+
+.menu-item-badge {
+  font-family: 'Space Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(192,57,43,0.18);
+  border: 1px solid var(--border);
+  color: var(--red);
+  border-radius: 2px;
+  padding: 0.1rem 0.35rem;
+  margin-top: 0.3rem;
+  display: inline-block;
+}
+
+.menu-item-badge.new { background: rgba(184,134,11,0.2); border-color: rgba(184,134,11,0.4); color: var(--gold); }
+.menu-item-badge.limited { background: rgba(100,60,0,0.3); border-color: rgba(184,134,11,0.3); color: #d4a017; }
+
+.menu-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 0.04em;
+  color: var(--red);
+  white-space: nowrap;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.menu-price .price-sm {
+  font-size: 0.8rem;
+  color: var(--faint);
+  display: block;
+  font-family: 'Space Mono', monospace;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+/* ── SHRINKIE BOXES ───────────────────────────────── */
+
+.shrinkie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.shrinkie-box {
+  background: var(--mid);
+  border: 1px solid rgba(192,57,43,0.35);
+  border-top: 4px solid var(--red);
+  border-radius: 2px;
+  padding: 1.1rem 1rem 1rem;
+  position: relative;
+  transition: all var(--t);
+}
+
+.shrinkie-box:hover {
+  background: rgba(192,57,43,0.06);
+  border-color: var(--red);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(192,57,43,0.18);
+}
+
+.shrinkie-box-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 0.3rem;
+}
+
+.shrinkie-box-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: 0.08em;
+  color: var(--cream);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.shrinkie-count {
+  display: flex;
+  gap: 0.3rem;
+  margin-bottom: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.shrinkie-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--red);
+  opacity: 0.7;
+  display: inline-block;
+}
+
+.shrinkie-box-desc {
+  font-size: 0.8rem;
+  color: var(--faint);
+  line-height: 1.45;
+  margin-bottom: 0.7rem;
+}
+
+.shrinkie-box-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-top: 1px solid var(--border);
+  padding-top: 0.6rem;
+  margin-top: 0.2rem;
+}
+
+.shrinkie-box-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  color: var(--red);
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.shrinkie-box-cal {
+  font-family: 'Space Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: right;
+}
+
+/* ── COMBO MEALS ──────────────────────────────────── */
+
+.combo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1rem;
+}
+
+.combo-card {
+  background: linear-gradient(135deg, var(--mid) 0%, rgba(139,26,18,0.08) 100%);
+  border: 1px solid rgba(192,57,43,0.3);
+  border-left: 5px solid var(--red);
+  border-radius: 0 2px 2px 0;
+  padding: 1.1rem 1.1rem 1rem;
+  transition: all var(--t);
+}
+
+.combo-card:hover {
+  border-color: var(--red);
+  background: linear-gradient(135deg, rgba(192,57,43,0.1) 0%, rgba(139,26,18,0.15) 100%);
+  transform: translateX(3px);
+}
+
+.combo-number {
+  font-family: 'Space Mono', monospace;
+  font-size: 7.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(192,57,43,0.7);
+  margin-bottom: 0.2rem;
+}
+
+.combo-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.35rem;
+  letter-spacing: 0.06em;
+  color: var(--cream);
+  margin-bottom: 0.5rem;
+  line-height: 1.1;
+}
+
+.combo-contents {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 0.8rem;
+}
+
+.combo-contents li {
+  font-size: 0.82rem;
+  color: var(--faint);
+  padding: 0.18rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.combo-contents li::before {
+  content: '▸';
+  color: var(--red);
+  font-size: 0.7em;
+  flex-shrink: 0;
+}
+
+.combo-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border);
+  padding-top: 0.6rem;
+  margin-top: 0.2rem;
+}
+
+.combo-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.7rem;
+  color: var(--red);
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.combo-saving {
+  font-family: 'Space Mono', monospace;
+  font-size: 7.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-align: right;
+}
+
+/* ── SIZE SELECTOR TABLE ──────────────────────────── */
+
+.size-table-wrap {
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+
+.size-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+}
+
+.size-table th {
+  background: var(--dark-red);
+  color: var(--cream);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.1em;
+  padding: 0.5rem 0.9rem;
+  text-align: left;
+  border: 1px solid rgba(192,57,43,0.3);
+}
+
+.size-table td {
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--border);
+  color: var(--faint);
+  background: var(--mid);
+}
+
+.size-table tr:hover td { background: rgba(192,57,43,0.06); }
+
+.size-table .price-cell {
+  color: var(--red);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.04em;
+}
+
+/* ── FOOTNOTE STRIP ───────────────────────────────── */
+
+.menu-footnote {
+  background: rgba(192,57,43,0.06);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 0.6rem 1rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 7.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(192,57,43,0.45);
+  margin: 1.5rem 0;
+  line-height: 1.8;
+}
+
+/* ── WIKI NOTE ────────────────────────────────────── */
+
+.menu-wiki-note {
+  background: rgba(30,21,16,0.9);
+  border: 1px dashed rgba(192,57,43,0.35);
+  border-radius: 2px;
+  padding: 0.9rem 1.1rem;
+  margin: 1.5rem 0;
+  font-size: 0.83rem;
+  color: var(--faint);
+  font-style: italic;
+}
+
+.menu-wiki-note strong { color: var(--red); font-style: normal; }
+
+</style>
+</head>
+<body>
+
+<div id="topbar"></div>
+
+<!-- IN-UNIVERSE MENU HERO -->
+<div class="menu-hero">
+  <div class="menu-hero-eyebrow">In-Universe · VortexFoods™ Restaurant</div>
+  <div class="menu-hero-title">THE <span>VORTEX</span> MENU</div>
+  <p class="menu-hero-sub">"Fresh, Fast, and Fully Compliant." — Explore the official in-universe menu board as it would appear at any VortexFoods™ dining location.</p>
+  <div class="menu-disclaimer">
+    · This is an in-universe fan document ·  All items, prices, and descriptions are fictional ·  VortexFoods™ is a fictional corporation ·  All characters 18+ ·
+  </div>
+</div>
+
+<div class="wiki-layout">
+  <nav id="sidebar"></nav>
+  <main id="content" class="fade-in">
+
+    <div class="callout">
+      <strong>Wiki Note:</strong> This page presents the VortexFoods™ restaurant menu as an <em>in-universe</em> document — a simulation of what a customer would see at a Vortex counter or drive-through. Details have been drawn from story descriptions and lore across the series, including the <em>Take-out</em>, <em>Drive-through</em>, <em>Live Feeding</em>, and <em>An American Nightmare</em> stories. All prices are in Euros (€) reflecting the German setting standard; USD equivalents apply in the American setting.
+    </div>
+
+    <div class="menu-board">
+
+      <!-- ═══════════ SECTION: SIGNATURES ═══════════ -->
+      <div class="menu-section-header">
+        <span class="sec-icon">🍔</span> Signature Burgers &amp; Mains
+      </div>
+      <p class="menu-section-desc">Hand-pressed patties on toasted brioche buns. All mains served with your choice of dipping sauce.</p>
+
+      <div class="menu-grid">
+
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">The Vortex Classic</div>
+            <div class="menu-item-desc">100% beef patty, Vortex signature sauce, iceberg lettuce, tomato, pickles, on a toasted sesame bun.</div>
+            <div class="menu-item-cal">650 kcal</div>
+          </div>
+          <div class="menu-price">€5.49</div>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">The Double Stack</div>
+            <div class="menu-item-desc">Two flame-grilled beef patties, American cheese, caramelised onion, Vortex relish, shredded lettuce.</div>
+            <div class="menu-item-cal">890 kcal</div>
+          </div>
+          <div class="menu-price">€7.29</div>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Crispy Chicken Crunch</div>
+            <div class="menu-item-desc">Buttermilk-marinated crispy chicken fillet, sriracha mayo, coleslaw, pickled jalapeños, brioche bun.</div>
+            <div class="menu-item-cal">720 kcal</div>
+          </div>
+          <div class="menu-price">€6.49</div>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Smoky BBQ Melt</div>
+            <div class="menu-item-desc">Beef patty, smoked bacon, aged cheddar, BBQ sauce, fried onion strings, toasted sourdough bun.</div>
+            <div class="menu-item-cal">970 kcal</div>
+          </div>
+          <div class="menu-price">€7.79</div>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Vortex Chicken Wrap</div>
+            <div class="menu-item-desc">Grilled chicken strips, mixed leaf, tomato, cucumber, Vortex garlic sauce, folded in a warm flour tortilla.</div>
+            <div class="menu-item-cal">540 kcal</div>
+            <span class="menu-item-badge">Popular</span>
+          </div>
+          <div class="menu-price">€6.19</div>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Spicy Vortex Dog</div>
+            <div class="menu-item-desc">100% beef frankfurter in a toasted brioche roll, spicy mustard, diced white onion, sriracha drizzle.</div>
+            <div class="menu-item-cal">480 kcal</div>
+          </div>
+          <div class="menu-price">€4.69</div>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Garden Fresh Burger <span style="color:var(--gold);font-size:0.75em;">(V)</span></div>
+            <div class="menu-item-desc">Plant-based patty, avocado cream, rocket, roasted red pepper, caramelised red onion chutney.</div>
+            <div class="menu-item-cal">530 kcal</div>
+            <span class="menu-item-badge new">Vegetarian</span>
+          </div>
+          <div class="menu-price">€6.29</div>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Vortex Fish Fillet</div>
+            <div class="menu-item-desc">Beer-battered cod fillet, tartar sauce, shredded lettuce, lemon wedge, on a toasted potato bun.</div>
+            <div class="menu-item-cal">610 kcal</div>
+          </div>
+          <div class="menu-price">€5.89</div>
+        </div>
+
+      </div>
+
+      <!-- ═══════════ SECTION: SIDES ═══════════ -->
+      <div class="menu-section-header">
+        <span class="sec-icon">🍟</span> Sides &amp; Extras
+      </div>
+      <p class="menu-section-desc">Golden, crispy, and made to share. Or not.</p>
+
+      <div class="size-table-wrap">
+        <table class="size-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Small</th>
+              <th>Medium</th>
+              <th>Large</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Vortex Fries</strong></td>
+              <td class="price-cell">€1.99</td>
+              <td class="price-cell">€2.79</td>
+              <td class="price-cell">€3.49</td>
+              <td>Twice-cooked, sea-salted golden fries.</td>
+            </tr>
+            <tr>
+              <td><strong>Seasoned Wedges</strong></td>
+              <td class="price-cell">€2.29</td>
+              <td class="price-cell">€3.09</td>
+              <td class="price-cell">€3.79</td>
+              <td>Skin-on potato wedges, paprika &amp; herb seasoning.</td>
+            </tr>
+            <tr>
+              <td><strong>Onion Rings</strong></td>
+              <td class="price-cell">€1.99</td>
+              <td class="price-cell">€2.79</td>
+              <td class="price-cell">—</td>
+              <td>Crispy battered onion rings, smoky dip included.</td>
+            </tr>
+            <tr>
+              <td><strong>Cheese Bites</strong></td>
+              <td class="price-cell">€2.49 <span style="color:var(--muted);font-size:0.75em;">(6pc)</span></td>
+              <td class="price-cell">€3.29 <span style="color:var(--muted);font-size:0.75em;">(9pc)</span></td>
+              <td class="price-cell">—</td>
+              <td>Fried mozzarella bites with marinara dipping sauce.</td>
+            </tr>
+            <tr>
+              <td><strong>Coleslaw</strong></td>
+              <td class="price-cell">€1.29</td>
+              <td class="price-cell">€1.99</td>
+              <td class="price-cell">—</td>
+              <td>Creamy house-made coleslaw.</td>
+            </tr>
+            <tr>
+              <td><strong>Side Salad</strong></td>
+              <td class="price-cell">€1.99</td>
+              <td class="price-cell">—</td>
+              <td class="price-cell">—</td>
+              <td>Mixed leaf, cherry tomato, croutons, house dressing.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ═══════════ SECTION: DRINKS ═══════════ -->
+      <div class="menu-section-header">
+        <span class="sec-icon">🥤</span> Drinks
+      </div>
+
+      <div class="size-table-wrap">
+        <table class="size-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Small</th>
+              <th>Medium</th>
+              <th>Large</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Soft Drink</strong></td>
+              <td class="price-cell">€1.49</td>
+              <td class="price-cell">€1.99</td>
+              <td class="price-cell">€2.49</td>
+              <td>Cola, lemonade, orange, diet cola, sparkling water.</td>
+            </tr>
+            <tr>
+              <td><strong>Vortex Shake</strong></td>
+              <td class="price-cell">€2.99</td>
+              <td class="price-cell">€3.79</td>
+              <td class="price-cell">€4.29</td>
+              <td>Vanilla, chocolate, strawberry, or salted caramel.</td>
+            </tr>
+            <tr>
+              <td><strong>Hot Coffee</strong></td>
+              <td class="price-cell">€1.79</td>
+              <td class="price-cell">€2.19</td>
+              <td class="price-cell">€2.59</td>
+              <td>Americano, flat white, cappuccino, or latte.</td>
+            </tr>
+            <tr>
+              <td><strong>Iced Coffee</strong></td>
+              <td class="price-cell">€2.29</td>
+              <td class="price-cell">€2.89</td>
+              <td class="price-cell">—</td>
+              <td>Cold brew over ice, choice of milk.</td>
+            </tr>
+            <tr>
+              <td><strong>Fresh OJ</strong></td>
+              <td class="price-cell">€1.99</td>
+              <td class="price-cell">—</td>
+              <td class="price-cell">—</td>
+              <td>Freshly squeezed. No added sugar.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ═══════════ SECTION: SHRINKIES ═══════════ -->
+      <div class="menu-section-header" style="border-left-color:#8b1a12; background: linear-gradient(90deg, #3a0800 0%, #1e1510 100%);">
+        <span class="sec-icon">📦</span> VortexFoods™ Shrinkies
+      </div>
+
+      <div class="menu-wiki-note">
+        <strong>Wiki context:</strong> As depicted across the series — most prominently in <em>Take-out</em>, <em>Live Feeding</em>, <em>Drive-through</em>, and the American Setting stories — VortexFoods™ sells shrunken human beings as a consumer snack product in small plastic boxes. They are treated legally and culturally as a food item. Boxes vary by count. The individuals inside are alive, conscious, and aware of their situation. Names and origins of those inside are never printed on packaging.
+      </div>
+
+      <p class="menu-section-desc">Living, legal, and licensed. Each Vortex shrinkie is certified under the Federal Miniaturisation and Consumer Livestock Act. All box sizes are sealed, ventilated, and ready to enjoy. Age verification required at point of sale.</p>
+
+      <div class="shrinkie-grid">
+
+        <!-- SMALL BOX -->
+        <div class="shrinkie-box">
+          <div class="shrinkie-box-label">Box Size · S</div>
+          <div class="shrinkie-box-name">Small Vortex Box</div>
+          <div class="shrinkie-count">
+            <span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span>
+            <span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span>
+          </div>
+          <div class="shrinkie-box-desc">A dozen shrinkies in a compact ventilated tray — the entry-level size. Perfect for a light snack or on-the-go treat. This is the "new, smaller on-board format" introduced for in-flight service and referenced in <em>An American Nightmare</em>; Kelly Lewis works through one in the galley between service rounds.</div>
+          <div class="shrinkie-box-footer">
+            <div class="shrinkie-box-price">€3.49</div>
+            <div class="shrinkie-box-cal">Est. 0 kcal<br>(see note*)</div>
+          </div>
+        </div>
+
+        <!-- MEDIUM BOX -->
+        <div class="shrinkie-box">
+          <div class="shrinkie-box-label">Box Size · M</div>
+          <div class="shrinkie-box-name">Medium Vortex Box</div>
+          <div class="shrinkie-count">
+            <span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span>
+            <span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span>
+            <span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span>
+            <span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span>
+            <span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span>
+            <span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span>
+          </div>
+          <div class="shrinkie-box-desc">48 shrinkies across six rows of individually ventilated cubicles — the standard everyday size. Ordered by Julia in <em>Take-out</em> for a solo evening in; and by Ashley in <em>Strange Behaviours</em>, who works through the full box over a study session, consuming all 48 before noticing a final survivor tucked near the middle.</div>
+          <div class="shrinkie-box-footer">
+            <div class="shrinkie-box-price">€5.99</div>
+            <div class="shrinkie-box-cal">Est. 0 kcal<br>(see note*)</div>
+          </div>
+        </div>
+
+        <!-- LARGE BOX -->
+        <div class="shrinkie-box">
+          <div class="shrinkie-box-label">Box Size · L</div>
+          <div class="shrinkie-box-name">Large Vortex Box</div>
+          <div class="shrinkie-count">
+            <span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span>
+            <span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span>
+            <span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span>
+            <span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span>
+            <span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span>
+            <span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span>
+          </div>
+          <div class="shrinkie-box-desc">Around 60 shrinkies in a wide-tray presentation format. Ideal for a long evening in or sharing with a friend. Birgit in <em>Drive-through</em> orders this size, using about two dozen just to garnish a single hamburger — with a substantial number still remaining to be saved for her boys.</div>
+          <div class="shrinkie-box-footer">
+            <div class="shrinkie-box-price">€8.99</div>
+            <div class="shrinkie-box-cal">Est. 0 kcal<br>(see note*)</div>
+          </div>
+        </div>
+
+        <!-- PARTY TRAY -->
+        <div class="shrinkie-box" style="border-top-color: var(--gold);">
+          <div class="shrinkie-box-label" style="color:var(--gold);">Box Size · XL · Party</div>
+          <div class="shrinkie-box-name">Vortex Party Tray</div>
+          <div class="shrinkie-count" style="flex-wrap:wrap;max-width:220px;">
+            <span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span>
+            <span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span>
+            <span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span>
+            <span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span>
+            <span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span>
+            <span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span>
+            <span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span>
+            <span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span><span class="shrinkie-dot"></span>
+          </div>
+          <div class="shrinkie-box-desc">Approx. 80+ shrinkies in a premium event-grade presentation tray with display lid. Ideal for dinner parties, events, or as a centrepiece. As featured in <em>Dinner Party</em> — the von Falkenau family's preferred format for entertaining guests.</div>
+          <div class="shrinkie-box-footer">
+            <div class="shrinkie-box-price" style="color:var(--gold);">€15.99</div>
+            <div class="shrinkie-box-cal" style="color:var(--gold);opacity:0.7;">Premium<br>Format</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="menu-footnote">
+        * Vortex shrinkies are classified under EU Directive 2031/VFC-12 as a non-nutritive consumer experience product. Caloric content per unit is negligible and does not require labelling under current EU food standards. · Shrinkie contents vary by availability, regional supply, and legislative classification tier. · VortexFoods™ cannot guarantee the biographical details, former occupation, or personal history of any individual packaged unit. · All shrinkies are legally designated Consumer Livestock Class III upon processing. · By purchasing, the consumer acknowledges full compliance with all applicable legislation and waives any right to information regarding individual unit provenance. · Minimum purchase age: 18.
+      </div>
+
+      <!-- ═══════════ SECTION: COMBO MEALS ═══════════ -->
+      <div class="menu-section-header">
+        <span class="sec-icon">🧾</span> Vortex Combo Meals
+      </div>
+      <p class="menu-section-desc">Every combo includes a main, a regular side, and a medium drink. Upgrade your side to a Shrinkie Box for an added thrill — or make it a Full Vortex Experience with a Large Box.</p>
+
+      <div class="combo-grid">
+
+        <div class="combo-card">
+          <div class="combo-number">Combo No. 1</div>
+          <div class="combo-name">The Classic Vortex Meal</div>
+          <ul class="combo-contents">
+            <li>Vortex Classic Burger</li>
+            <li>Medium Fries</li>
+            <li>Medium Soft Drink</li>
+          </ul>
+          <div class="combo-footer">
+            <div class="combo-price">€8.99</div>
+            <div class="combo-saving">Save €0.78<br>vs. separate</div>
+          </div>
+        </div>
+
+        <div class="combo-card">
+          <div class="combo-number">Combo No. 2</div>
+          <div class="combo-name">Double Stack Meal</div>
+          <ul class="combo-contents">
+            <li>The Double Stack Burger</li>
+            <li>Large Fries</li>
+            <li>Large Soft Drink</li>
+          </ul>
+          <div class="combo-footer">
+            <div class="combo-price">€11.49</div>
+            <div class="combo-saving">Save €1.08<br>vs. separate</div>
+          </div>
+        </div>
+
+        <div class="combo-card">
+          <div class="combo-number">Combo No. 3</div>
+          <div class="combo-name">Chicken Crunch Meal</div>
+          <ul class="combo-contents">
+            <li>Crispy Chicken Crunch Sandwich</li>
+            <li>Medium Seasoned Wedges</li>
+            <li>Medium Soft Drink or Iced Coffee</li>
+          </ul>
+          <div class="combo-footer">
+            <div class="combo-price">€10.29</div>
+            <div class="combo-saving">Save €0.90<br>vs. separate</div>
+          </div>
+        </div>
+
+        <div class="combo-card" style="border-left-color: #8b1a12; background: linear-gradient(135deg, #1a0800 0%, rgba(139,26,18,0.12) 100%);">
+          <div class="combo-number" style="color:var(--red);">Combo No. 4 · Signature</div>
+          <div class="combo-name">The Vortex Snack Box Meal</div>
+          <ul class="combo-contents">
+            <li>Vortex Classic Burger</li>
+            <li>Medium Fries</li>
+            <li>Medium Soft Drink</li>
+            <li style="color: var(--red); font-weight: bold;">Small Vortex Shrinkie Box (12 ct.)</li>
+          </ul>
+          <div class="combo-footer">
+            <div class="combo-price">€10.99</div>
+            <div class="combo-saving">Save €1.28<br>vs. separate</div>
+          </div>
+        </div>
+
+        <div class="combo-card" style="border-left-color: #8b1a12; background: linear-gradient(135deg, #1a0800 0%, rgba(139,26,18,0.12) 100%);">
+          <div class="combo-number" style="color:var(--red);">Combo No. 5 · Signature</div>
+          <div class="combo-name">The Double Stack &amp; Box</div>
+          <ul class="combo-contents">
+            <li>The Double Stack Burger</li>
+            <li>Large Fries</li>
+            <li>Large Soft Drink</li>
+            <li style="color: var(--red); font-weight: bold;">Medium Vortex Shrinkie Box (48 ct.)</li>
+          </ul>
+          <div class="combo-footer">
+            <div class="combo-price">€14.99</div>
+            <div class="combo-saving">Save €2.28<br>vs. separate</div>
+          </div>
+        </div>
+
+        <div class="combo-card" style="border-left-color: #8b1a12; background: linear-gradient(135deg, #1a0800 0%, rgba(139,26,18,0.12) 100%);">
+          <div class="combo-number" style="color:var(--red);">Combo No. 6 · Signature</div>
+          <div class="combo-name">Chicken &amp; Shrinkie Meal</div>
+          <ul class="combo-contents">
+            <li>Crispy Chicken Crunch Sandwich</li>
+            <li>Medium Fries</li>
+            <li>Medium Soft Drink</li>
+            <li style="color: var(--red); font-weight: bold;">Small Vortex Shrinkie Box (12 ct.)</li>
+          </ul>
+          <div class="combo-footer">
+            <div class="combo-price">€11.49</div>
+            <div class="combo-saving">Save €1.18<br>vs. separate</div>
+          </div>
+        </div>
+
+        <div class="combo-card" style="border-left-color: var(--gold); background: linear-gradient(135deg, #1f1100 0%, rgba(100,60,0,0.15) 100%);">
+          <div class="combo-number" style="color:var(--gold);">Combo No. 7 · Full Experience</div>
+          <div class="combo-name">The Full Vortex Experience</div>
+          <ul class="combo-contents">
+            <li>Smoky BBQ Melt</li>
+            <li>Large Seasoned Wedges</li>
+            <li>Vortex Shake (any flavour)</li>
+            <li style="color: var(--gold);">Large Vortex Shrinkie Box (60 ct.)</li>
+          </ul>
+          <div class="combo-footer">
+            <div class="combo-price" style="color:var(--gold);">€18.49</div>
+            <div class="combo-saving" style="color:var(--gold);">Save €3.57<br>vs. separate</div>
+          </div>
+        </div>
+
+        <div class="combo-card" style="border-left-color: var(--gold); background: linear-gradient(135deg, #1f1100 0%, rgba(100,60,0,0.15) 100%);">
+          <div class="combo-number" style="color:var(--gold);">Combo No. 8 · Full Experience</div>
+          <div class="combo-name">The Drive-Through Special</div>
+          <ul class="combo-contents">
+            <li>Any Burger of your choice</li>
+            <li>Large Fries</li>
+            <li>Large Soft Drink</li>
+            <li style="color: var(--gold);">Medium Vortex Shrinkie Box (48 ct.)</li>
+          </ul>
+          <div class="combo-footer">
+            <div class="combo-price" style="color:var(--gold);">€13.99</div>
+            <div class="combo-saving" style="color:var(--gold);">Save €2.17<br>drive-through excl.</div>
+          </div>
+        </div>
+
+        <div class="combo-card" style="border-left-color: var(--gold); background: linear-gradient(135deg, #1f1100 0%, rgba(100,60,0,0.15) 100%);">
+          <div class="combo-number" style="color:var(--gold);">Combo No. 9 · Premium</div>
+          <div class="combo-name">The Evening Indulgence</div>
+          <ul class="combo-contents">
+            <li>Any Main of your choice</li>
+            <li>Large Fries &amp; Side Salad</li>
+            <li>Vortex Shake (any flavour)</li>
+            <li style="color: var(--gold);">Large Vortex Shrinkie Box (60 ct.) + <span style="color:#d4a017;">Bonus 2 Shrinkies</span></li>
+          </ul>
+          <div class="combo-footer">
+            <div class="combo-price" style="color:var(--gold);">€19.99</div>
+            <div class="combo-saving" style="color:var(--gold);">Best Value<br>Evening Deal</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="menu-footnote">
+        All combo prices valid at participating VortexFoods™ locations. Vortex reserves the right to substitute shrinkie box sizes based on regional stock availability. Drive-through premium of +€0.30 does not apply to Combo 8. The "Full Vortex Experience" and "Evening Indulgence" combos are subject to local licensing. Shrinkie boxes included in combos are standard mixed-allocation — specific origin, former occupation, or personal characteristics of boxed individuals cannot be requested or guaranteed. All combos served hot. Enjoy your meal.
+      </div>
+
+      <!-- ═══════════ SECTION: BREAKFAST ═══════════ -->
+      <div class="menu-section-header">
+        <span class="sec-icon">🍳</span> Breakfast Menu
+        <span style="font-size:0.7rem;font-family:'Space Mono',monospace;letter-spacing:0.1em;margin-left:auto;color:rgba(245,240,232,0.35);">SERVED UNTIL 11:00</span>
+      </div>
+      <p class="menu-section-desc">Start your day the Vortex way. As enjoyed in <em>A Balanced Breakfast</em> — Julia and Bahar's preferred morning routine includes a Vortex breakfast box.</p>
+
+      <div class="menu-grid">
+
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Vortex Breakfast Muffin</div>
+            <div class="menu-item-desc">Toasted English muffin, free-range egg, smoked back bacon, American cheese, hollandaise.</div>
+            <div class="menu-item-cal">490 kcal</div>
+          </div>
+          <div class="menu-price">€4.29</div>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Vortex Breakfast Wrap</div>
+            <div class="menu-item-desc">Scrambled egg, cheddar, grilled sausage, sautéed mushrooms, house salsa, warm flour tortilla.</div>
+            <div class="menu-item-cal">580 kcal</div>
+            <span class="menu-item-badge new">New</span>
+          </div>
+          <div class="menu-price">€4.99</div>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Hash Brown (3 pcs)</div>
+            <div class="menu-item-desc">Crispy shredded potato hash browns, lightly salted. Pairs well with any breakfast item.</div>
+            <div class="menu-item-cal">220 kcal</div>
+          </div>
+          <div class="menu-price">€1.89</div>
+        </div>
+
+        <div class="menu-item" style="border-color:rgba(192,57,43,0.5);">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Vortex Morning Box</div>
+            <div class="menu-item-desc">Start your morning with an early Shrinkie Box — available from 07:00. Small box only. As referenced in <em>A Balanced Breakfast</em>, some customers prefer their Vortex shrinkies as the first thing of the day.</div>
+            <div class="menu-item-cal">—</div>
+            <span class="menu-item-badge">Early Access · 07:00–09:00</span>
+          </div>
+          <div class="menu-price">€3.49<span class="price-sm">Small Box</span></div>
+        </div>
+
+      </div>
+
+      <!-- ═══════════ FOOTER NOTE ═══════════ -->
+      <div style="margin-top:2.5rem; padding: 1.2rem; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius:2px;">
+        <p style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(192,57,43,0.5);line-height:2;">
+          VORTEXFOODS™ CORPORATION &bull; LICENSED PREMISES &bull; ALL PRODUCTS MANUFACTURED IN COMPLIANCE WITH FEDERAL MINIATURISATION ACT AND EU FOOD STANDARDS REGULATION (EC) NO. 178/2031 AS AMENDED &bull; ALL SHRUNKEN PRODUCTS ARE CERTIFIED CONSUMER LIVESTOCK CLASS III &bull; VORTEX ACCEPTS NO LIABILITY FOR THE PERSONAL HISTORY, CRIMINAL RECORD, OR PSYCHOLOGICAL WELLBEING OF INDIVIDUAL SHRINKIE UNITS &bull; MANAGEMENT RESERVES THE RIGHT TO REFUSE SERVICE &bull; THANK YOU FOR CHOOSING VORTEX TODAY — ENJOY YOUR MEAL.
+        </p>
+      </div>
+
+    </div><!-- /menu-board -->
+
+  </main>
+</div>
+
+<footer>COPYRIGHT © VORTEXFOODSTM 2020–2025 &bull; UNOFFICIAL FAN WIKI &bull; ALL CHARACTERS FICTIONAL &bull; ALL CHARACTERS 18+ &bull; IN-UNIVERSE DOCUMENT</footer>
+
+<script src="data.js"></script>
+<script>renderNav('menu.html');</script>
+</body>
+</html>

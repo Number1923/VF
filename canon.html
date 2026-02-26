@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canon Guest Stories — VortexFoods™ Wiki</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="topbar"></div>
+
+<div class="wiki-layout">
+  <nav id="sidebar"></nav>
+  <main id="content" class="fade-in">
+
+    <div class="page-eyebrow">Fiction · Canon</div>
+    <div class="page-title">Canon Guest Stories</div>
+
+    <div class="callout">
+      These stories were written by guest author <strong>Marius-the-Mage</strong> with the permission of the original creator, and reviewed before publication to ensure conformity with the series' rules (all pred/prey characters 18+, etc.). They are considered <strong>fully canonical</strong> within the VortexFoods™ universe.
+    </div>
+
+    <div class="clearfix">
+      <div class="infobox">
+        <div class="infobox-title">Canon Guest Stories</div>
+        <table>
+          <tr><td>Author</td><td>Marius-the-Mage</td></tr>
+          <tr><td>Total stories</td><td>7</td></tr>
+          <tr><td>Story arcs</td><td>Conversations with Cuisine, Hungry Skies, The Rose and the Rebel, The Tourists</td></tr>
+          <tr><td>Canon status</td><td><span class="badge b-alive">Fully Canon</span></td></tr>
+        </table>
+      </div>
+
+      <p>The canon guest stories introduce their own recurring characters while intersecting with the established VortexFoods™ universe. The <strong>Lefebvre sisters</strong> (Aurélie, Blandine, Florence, and Rosalie) are the most prominent recurring figures across the guest story catalogue, appearing in both The Rose and the Rebel and Hungry Skies arcs.</p>
+      <p>Several characters introduced in canon guest stories have physical profiles and biographical data that place them firmly in the VortexFoods™ world. <a href="characters.html#jutta-bauer">Jutta Bauer</a>, the German scientist from The Rose and the Rebel, is classified under the German Setting due to her nationality and connections.</p>
+      <p><a href="characters.html#meryl-douglas">Meryl Douglas</a>, an American fitness coach appearing in Conversations with Cuisine, is also classified under the American Setting for the same reason.</p>
+
+      <h2 class="sh">Characters in Canon Guest Stories</h2>
+      <div class="char-grid" id="guest-grid"></div>
+
+      <h2 class="sh" style="clear:both;">All Canon Guest Stories</h2>
+      <div id="story-list"></div>
+    </div>
+
+  </main>
+</div>
+
+<footer>COPYRIGHT © VORTEXFOODSTM 2020–2025 &bull; UNOFFICIAL FAN WIKI &bull; ALL CHARACTERS FICTIONAL &bull; ALL CHARACTERS 18+</footer>
+
+<script src="data.js"></script>
+<script>
+
+function init() {
+  renderNav('canon.html');
+
+  const grid = document.getElementById('guest-grid');
+  guestCharacters.forEach(c => grid.innerHTML += makeCharCard(c));
+
+  const list = document.getElementById('story-list');
+  canonStories.forEach(s => list.innerHTML += makeStoryCard(s, 'Canon Guest'));
+}
+
+init();
+</script>
+</body>
+</html>

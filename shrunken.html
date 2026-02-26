@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shrunken Characters — VortexFoods™ Wiki</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+
+.victim-section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 2.5rem 0 0.8rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--border);
+}
+
+.victim-section-flag { font-size: 1.8rem; line-height: 1; }
+
+.victim-section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 0.1em;
+  color: var(--cream);
+}
+
+.victim-section-count {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-left: auto;
+}
+
+.victim-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.victim-card {
+  background: var(--mid);
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--red);
+  border-radius: 2px;
+  padding: 1.1rem 1.1rem 2.5rem;
+  position: relative;
+  transition: all var(--t);
+}
+
+.victim-card:hover {
+  background: rgba(192,57,43,0.07);
+  border-color: rgba(192,57,43,0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(192,57,43,0.15);
+}
+
+.victim-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.victim-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 0.06em;
+  color: var(--cream);
+  line-height: 1.1;
+}
+
+.victim-nat {
+  font-family: 'Space Mono', monospace;
+  font-size: 7.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(192,57,43,0.8);
+  margin-top: 0.15rem;
+}
+
+.victim-card-row {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--faint);
+  margin-bottom: 0.25rem;
+  align-items: baseline;
+}
+
+.victim-card-row strong {
+  color: rgba(192,57,43,0.8);
+  font-family: 'Space Mono', monospace;
+  font-size: 7.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  width: 7rem;
+  flex-shrink: 0;
+}
+
+.victim-bio-preview {
+  margin-top: 0.6rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.8rem;
+  color: rgba(200,194,180,0.65);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+.victim-link {
+  font-family: 'Space Mono', monospace;
+  font-size: 7.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--red);
+  text-decoration: none;
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.9rem;
+  opacity: 0.7;
+  transition: opacity var(--t);
+}
+.victim-link:hover { opacity: 1; }
+
+</style>
+</head>
+<body>
+
+<div id="topbar"></div>
+
+<div class="wiki-layout">
+  <nav id="sidebar"></nav>
+  <main id="content" class="fade-in">
+
+    <div class="page-eyebrow">Victims &amp; Prey</div>
+    <div class="page-title">Shrunken Characters</div>
+
+    <div class="callout">
+      This page documents named individuals who appear in the series in a shrunken state as VortexFoods™ products. Unlike normal-sized characters, these individuals have been reduced, packaged, and face — or have faced — consumption. Characters are grouped below by nationality. All entries on this page are characters with confirmed names. Anonymous victims are tracked in estimated kill counts on individual predator character pages.
+    </div>
+
+    <h2 class="sh">All Named Shrunken Characters</h2>
+
+    <table class="wiki-table">
+      <thead><tr><th>Name</th><th>Nationality</th><th>Former Occupation</th><th>Status</th><th>Story</th><th>Killed By</th></tr></thead>
+      <tbody id="shrunken-table"></tbody>
+    </table>
+
+    <!-- ══ SHRUNKEN AMERICANS ══ -->
+    <div class="victim-section-header">
+      <span class="victim-section-flag">🇺🇸</span>
+      <div>
+        <div class="victim-section-title">Shrunken Americans</div>
+        <div style="font-size:0.8rem;color:var(--faint);font-style:italic;">US nationals shrunken and packaged in the American Setting</div>
+      </div>
+      <div class="victim-section-count">19 Documented</div>
+    </div>
+
+    <p style="font-size:0.87rem;color:var(--faint);margin-bottom:1rem;">American shrunken victims span four stories: <em>Strange Behaviours</em>, <em>A Matter of Principle</em>, <em>Good for Goodness' Sake</em>, and <em>Checking Out</em>. Their fates represent the full range of Vortex's selection criteria: economic marginalisation, political inconvenience, criminal justice outsourcing, activist suppression, and simple proximity to power.</p>
+
+    <div class="victim-grid" id="grid-american-shrunken"></div>
+
+    <!-- ══ SHRUNKEN GERMANS ══ -->
+    <div class="victim-section-header">
+      <span class="victim-section-flag">🇩🇪</span>
+      <div>
+        <div class="victim-section-title">Shrunken Germans</div>
+        <div style="font-size:0.8rem;color:var(--faint);font-style:italic;">German nationals intercepted, shrunk, and sold as Vortex product</div>
+      </div>
+      <div class="victim-section-count">3 Documented</div>
+    </div>
+
+    <p style="font-size:0.87rem;color:var(--faint);margin-bottom:1rem;">All three confirmed German victims appear in <em>An American Nightmare</em> (American Setting, Story 2). Each was intercepted at an international airport under different pretexts, then shrunk and inserted into the in-flight catering supply. Their deaths occurred aboard an international flight. None of the predators were ever made aware of the identities of those they consumed.</p>
+
+    <div class="victim-grid" id="grid-german-shrunken"></div>
+
+    <!-- ══ BY STORY ══ -->
+    <h2 class="sh">By Story</h2>
+
+    <h3 class="sub">Strange Behaviours — American Setting, Story 1</h3>
+    <table class="wiki-table">
+      <thead><tr><th>Name</th><th>Former Occupation</th><th>Status</th><th>Cause of Death</th><th>Killed By</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><a href="characters.html#brian">Brian</a></td>
+          <td>Unemployed</td>
+          <td><span class="badge b-dec">Deceased</span></td>
+          <td>Digested alive (at own request)</td>
+          <td><a href="characters.html#ashley-taylor">Ashley Taylor</a></td>
+        </tr>
+        <tr>
+          <td><a href="characters.html#megan-sanders">Megan Sanders</a></td>
+          <td>Lawyer</td>
+          <td><span class="badge b-dec">Deceased</span></td>
+          <td>Swallowed alive, digested</td>
+          <td><a href="characters.html#ashley-taylor">Ashley Taylor</a></td>
+        </tr>
+        <tr>
+          <td><a href="characters.html#timothy-walker">Timothy Walker</a></td>
+          <td>Convicted serial killer</td>
+          <td><span class="badge b-dec">Deceased</span></td>
+          <td>Swallowed alive, digested</td>
+          <td><a href="characters.html#ashley-taylor">Ashley Taylor</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:0.84rem;color:var(--muted);font-style:italic;">In addition to the named victims above, Ashley Taylor consumed approximately 27 unnamed anonymous shrinkies during the events of Strange Behaviours.</p>
+
+    <h3 class="sub">An American Nightmare — American Setting, Story 2</h3>
+    <table class="wiki-table">
+      <thead><tr><th>Name</th><th>Former Occupation</th><th>Status</th><th>Cause of Death</th><th>Killed By</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><a href="characters.html#max">Max</a></td>
+          <td>Student / Volunteer</td>
+          <td><span class="badge b-dec">Deceased</span></td>
+          <td>Digested alive, unknowingly eaten as in-flight snack</td>
+          <td><a href="characters.html#ashley-taylor">Ashley Taylor</a></td>
+        </tr>
+        <tr>
+          <td><a href="characters.html#thilo-busch">Thilo Busch</a></td>
+          <td>Journalist</td>
+          <td><span class="badge b-dec">Deceased</span></td>
+          <td>Swallowed whole in galley</td>
+          <td><a href="characters.html#kelly-lewis">Kelly Lewis</a></td>
+        </tr>
+        <tr>
+          <td><a href="characters.html#heiko-brandt">Heiko Brandt</a></td>
+          <td>Convicted criminal</td>
+          <td><span class="badge b-dec">Deceased</span></td>
+          <td>Swallowed whole during dinner service</td>
+          <td><a href="characters.html#kayla-hayes">Kayla Hayes</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:0.84rem;color:var(--muted);font-style:italic;">Ashley Taylor also unknowingly ate approximately 2 anonymous shrinkies from her in-flight box. Kelly Lewis consumed several more anonymous shrinkies while snacking in the galley. Kayla Hayes sprinkled additional anonymous shrinkies on her salad.</p>
+
+    <h3 class="sub">A Matter of Principle — American Setting, Story 3</h3>
+    <table class="wiki-table">
+      <thead><tr><th>Name</th><th>Former Occupation</th><th>Status</th><th>Cause of Death</th><th>Killed By</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><a href="characters.html#paige-wright">Paige Wright</a></td>
+          <td>Activist</td>
+          <td><span class="badge b-dec">Deceased</span></td>
+          <td>Digested alive in Hannah Lindquist's stomach; drowned in chyme while holding Jordan</td>
+          <td><a href="characters.html#hannah-lindquist">Hannah Lindquist</a></td>
+        </tr>
+        <tr>
+          <td><a href="characters.html#dylan">Dylan</a></td>
+          <td>Activist</td>
+          <td><span class="badge b-dec">Deceased</span></td>
+          <td>Swallowed whole; suffocated inside stomach</td>
+          <td><a href="characters.html#ashley-taylor">Ashley Taylor</a></td>
+        </tr>
+        <tr>
+          <td><a href="characters.html#miguel">Miguel</a></td>
+          <td>Activist</td>
+          <td><span class="badge b-dec">Deceased</span></td>
+          <td>Swallowed alive; drowned in stomach contents</td>
+          <td><a href="characters.html#rachel-cohen">Rachel Cohen</a></td>
+        </tr>
+        <tr>
+          <td><a href="characters.html#jordan">Jordan</a></td>
+          <td>Activist</td>
+          <td><span class="badge b-dec">Deceased</span></td>
+          <td>Drowned in Hannah Lindquist's stomach acid while held by Paige</td>
+          <td><a href="characters.html#hannah-lindquist">Hannah Lindquist</a></td>
+        </tr>
+        <tr>
+          <td><a href="characters.html#tyler">Tyler</a></td>
+          <td>Activist / Computer specialist</td>
+          <td><span class="badge b-dec">Deceased</span></td>
+          <td>Swept away in Hannah Lindquist's stomach; died in stomach acid</td>
+          <td><a href="characters.html#hannah-lindquist">Hannah Lindquist</a></td>
+        </tr>
+        <tr>
+          <td><a href="characters.html#diane">Diane</a></td>
+          <td>Unknown</td>
+          <td><span class="badge b-dec">Deceased</span></td>
+          <td>Swallowed whole by Ashley Taylor while pleading with Hannah</td>
+          <td><a href="characters.html#ashley-taylor">Ashley Taylor</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:0.84rem;color:var(--muted);font-style:italic;">Rachel Cohen also consumed a full medium box of anonymous shrinkies. Hannah Lindquist ate approximately half of Rachel's box in addition to the named victims above. Roughly a dozen other activists captured in the raid were sent to processing.</p>
+
+    <h3 class="sub">Good for Goodness' Sake — American Setting, Story 4</h3>
+    <table class="wiki-table">
+      <thead><tr><th>Name</th><th>Former Occupation</th><th>Status</th><th>Cause of Death</th><th>Killed By</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><a href="characters.html#arthur">Arthur</a></td>
+          <td>Freelance programmer / card trader</td>
+          <td><span class="badge b-dec">Deceased</span></td>
+          <td>Used intimately by Hannah Lindquist, then swallowed whole and digested alive on Christmas night</td>
+          <td><a href="characters.html#hannah-lindquist">Hannah Lindquist</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:0.84rem;color:var(--muted);font-style:italic;">Victoria Lindquist consumed approximately 12 anonymous shrinkies from Hannah's Christmas plate. Hannah purchased a small airport box whose anonymous occupants were also eaten during her Christmas Eve travel.</p>
+
+    <h3 class="sub">Checking Out — American Setting, Story 5</h3>
+    <table class="wiki-table">
+      <thead><tr><th>Name</th><th>Former Occupation</th><th>Status</th><th>Cause of Death</th><th>Killed By</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><a href="characters.html#joe-gunderson">Joe Gunderson</a></td>
+          <td>Convicted car thief</td>
+          <td><span class="badge b-dec">Deceased</span></td>
+          <td>Eaten by Cassandra Davis; washed down with morning coffee</td>
+          <td><a href="characters.html#cassandra-davis">Cassandra Davis</a></td>
+        </tr>
+        <tr>
+          <td><a href="characters.html#nicole-barnes">Nicole Barnes</a></td>
+          <td>Convicted robber</td>
+          <td><span class="badge b-dec">Deceased</span></td>
+          <td>Sucked off tongue and swallowed mid-conversation by Victoria Lindquist</td>
+          <td><a href="characters.html#victoria-lindquist">Victoria Lindquist</a></td>
+        </tr>
+        <tr>
+          <td><a href="characters.html#scott-chapman">Scott Chapman</a></td>
+          <td>Stock trader / Fraudster</td>
+          <td><span class="badge b-dec">Deceased</span></td>
+          <td>Played with in Victoria Lindquist's mouth during bath, then swallowed while she drinks hot chocolate</td>
+          <td><a href="characters.html#victoria-lindquist">Victoria Lindquist</a></td>
+        </tr>
+        <tr>
+          <td><a href="characters.html#marcus-chen">Marcus Chen</a></td>
+          <td>Firefighter (convicted arsonist)</td>
+          <td><span class="badge b-dec">Deceased</span></td>
+          <td>Swallowed by Victoria Lindquist during bath conditioner routine</td>
+          <td><a href="characters.html#victoria-lindquist">Victoria Lindquist</a></td>
+        </tr>
+        <tr>
+          <td><a href="characters.html#harper-bennett">Harper Bennett</a></td>
+          <td>Wildlife activist</td>
+          <td><span class="badge b-dec">Deceased</span></td>
+          <td>Flicked into Victoria Lindquist's mouth and swallowed during conditioner rinse</td>
+          <td><a href="characters.html#victoria-lindquist">Victoria Lindquist</a></td>
+        </tr>
+        <tr>
+          <td><a href="characters.html#monica-baker">Monica Baker</a></td>
+          <td>State prosecutor's attorney</td>
+          <td><span class="badge b-dec">Deceased</span></td>
+          <td>Swallowed whole by Hannah Lindquist in a spoonful of fruity loops cereal; digested alive for nearly an hour</td>
+          <td><a href="characters.html#hannah-lindquist">Hannah Lindquist</a></td>
+        </tr>
+        <tr>
+          <td><a href="characters.html#alex-baker">Alex Baker</a></td>
+          <td>Unknown</td>
+          <td><span class="badge b-dec">Deceased</span></td>
+          <td>Crushed between Hannah Lindquist's molars; killed instantly</td>
+          <td><a href="characters.html#hannah-lindquist">Hannah Lindquist</a></td>
+        </tr>
+        <tr>
+          <td><a href="characters.html#kyle-edwards">Kyle Edwards</a></td>
+          <td>Unknown</td>
+          <td><span class="badge b-dec">Deceased</span></td>
+          <td>Survived Victoria's bath; given to Stacy (Ryan's wife) two days later and eaten by her</td>
+          <td>Stacy (Ryan's wife)</td>
+        </tr>
+        <tr>
+          <td><a href="characters.html#checking-out-main-character">Checking Out Main Character</a></td>
+          <td>Business traveller</td>
+          <td><span class="badge b-dec">Deceased</span></td>
+          <td>Stunned by Vortex operative in hotel parking garage; woke already shrunk in staff room box. Grabbed the hand of a fellow shrinkie attempting a wall escape — both snatched up together. Victoria swallowed the other man; the protagonist fell free into the bathwater and called out to her by name. She gave a sly grin and submerged — erupting from below in a shark-dive, sweeping him into her mouth with a wave of bathwater. Swallowed immediately with a grimace at the soapy taste. Digested overnight; flushed at 11 PM.</td>
+          <td><a href="characters.html#victoria-lindquist">Victoria Lindquist</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:0.84rem;color:var(--muted);font-style:italic;">Victoria Lindquist consumed 3–4 additional anonymous shrinkies during her bath session, Nicole Barnes in an elevator on the way to her car, and one unnamed buzz-cut female with her last gulp of hot chocolate to prevent an overnight escape. Cassandra Davis ate Joe Gunderson and the rest of her staff box during her morning break. Hannah Lindquist consumed multiple anonymous cereal shrinkies during her dawn video call with Victoria, including Monica and Alex Baker.</p>
+
+    <h2 class="sh">Notes on Victim Selection</h2>
+    <p>VortexFoods™ shrinkies are assigned to packaging based on criteria that include criminal conviction, economic classification as a "net negative" (debt, unemployment, poor prognosis), and social deviance as defined by Vortex's institutional criteria. Some, like Timothy Walker, are formally sentenced criminals whose death sentences are carried out via Vortex. Others, like Megan Sanders, appear to be victims of politically motivated targeting — she was investigating journalist disappearances inconvenient to the Department of Justice and Vortex alike. Max and Thilo Busch represent an ideological/journalistic suppression category, handed over under the "Section V" protocol or equivalent international arrangements.</p>
+
+    <h2 class="sh">Predator Kill Counts</h2>
+    <table class="wiki-table">
+      <thead><tr><th>Character</th><th>Named Kills</th><th>Est. Anonymous Kills</th><th>Total (est.)</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><a href="characters.html#ashley-taylor">Ashley Taylor</a></td>
+          <td>6 (Brian, Megan Sanders, Timothy Walker, Max, Diane, Dylan)</td>
+          <td>~55</td>
+          <td>~61</td>
+        </tr>
+        <tr>
+          <td><a href="characters.html#rachel-cohen">Rachel Cohen</a></td>
+          <td>1 (Miguel)</td>
+          <td>~47</td>
+          <td>~48</td>
+        </tr>
+        <tr>
+          <td><a href="characters.html#hannah-lindquist">Hannah Lindquist</a></td>
+          <td>6 (Paige Wright, Jordan, Tyler, Arthur, Monica Baker, Alex Baker)</td>
+          <td>~16</td>
+          <td>~22</td>
+        </tr>
+        <tr>
+          <td><a href="characters.html#victoria-lindquist">Victoria Lindquist</a></td>
+          <td>5 (Nicole Barnes, Scott Chapman, Marcus Chen, Harper Bennett, Checking Out Main Character)</td>
+          <td>~20</td>
+          <td>~25</td>
+        </tr>
+        <tr>
+          <td><a href="characters.html#kelly-lewis">Kelly Lewis</a></td>
+          <td>2 (Thilo Busch, anonymous woman)</td>
+          <td>~5</td>
+          <td>~7</td>
+        </tr>
+        <tr>
+          <td><a href="characters.html#kayla-hayes">Kayla Hayes</a></td>
+          <td>1 (Heiko Brandt)</td>
+          <td>~3</td>
+          <td>~4</td>
+        </tr>
+        <tr>
+          <td><a href="characters.html#cassandra-davis">Cassandra Davis</a></td>
+          <td>1 (Joe Gunderson)</td>
+          <td>~8</td>
+          <td>~9</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </main>
+</div>
+
+<footer>COPYRIGHT © VORTEXFOODSTM 2020–2025 &bull; UNOFFICIAL FAN WIKI &bull; ALL CHARACTERS FICTIONAL &bull; ALL CHARACTERS 18+</footer>
+
+<script src="data.js"></script>
+<script>
+
+const americanShrunkenIds = [
+  'brian','megan-sanders','timothy-walker',
+  'paige-wright','dylan','miguel','jordan','tyler','diane',
+  'arthur',
+  'joe-gunderson','nicole-barnes','scott-chapman','marcus-chen','harper-bennett','monica-baker','alex-baker','kyle-edwards','checking-out-main-character'
+];
+const germanShrunkenIds   = ['max','thilo-busch','heiko-brandt'];
+
+function makeVictimCard(c) {
+  const bioSnippet = c.bio ? c.bio.substring(0, 240).replace(/\s\S+$/, '') + '…' : '';
+  return `
+    <div class="victim-card">
+      <div class="victim-card-top">
+        <div>
+          <div class="victim-name">${c.name}</div>
+          <div class="victim-nat">${c.nationality}</div>
+        </div>
+        ${badgeHTML(c.status)}
+      </div>
+      <div class="victim-card-row"><strong>Occupation</strong> ${c.occupation}</div>
+      <div class="victim-card-row"><strong>Appeared In</strong> <em>${c.stories[0]}</em></div>
+      <div class="victim-card-row"><strong>Killed By</strong> ${c.killer ? `<a href="characters.html#${nameToId(c.killer)}" style="color:var(--red);">${c.killer}</a>` : '—'}</div>
+      <div class="victim-card-row"><strong>Cause</strong> ${c.deathCause || '—'}</div>
+      <div class="victim-bio-preview">${bioSnippet}</div>
+      <a class="victim-link" href="characters.html#${c.id}">Full Profile →</a>
+    </div>`;
+}
+
+function init() {
+  renderNav('shrunken.html');
+
+  // Master table
+  const tbody = document.getElementById('shrunken-table');
+  shrunkenVictims.forEach(c => {
+    tbody.innerHTML += `<tr>
+      <td><a href="characters.html#${c.id}">${c.name}</a></td>
+      <td>${c.nationality}</td>
+      <td>${c.occupation}</td>
+      <td>${badgeHTML(c.status)}</td>
+      <td><em>${c.stories[0]}</em></td>
+      <td>${c.killer ? `<a href="characters.html#${nameToId(c.killer)}">${c.killer}</a>` : '—'}</td>
+    </tr>`;
+  });
+
+  // American shrunken grid
+  const gaAm = document.getElementById('grid-american-shrunken');
+  shrunkenVictims.filter(c => americanShrunkenIds.includes(c.id)).forEach(c => {
+    gaAm.innerHTML += makeVictimCard(c);
+  });
+
+  // German shrunken grid
+  const gaGe = document.getElementById('grid-german-shrunken');
+  shrunkenVictims.filter(c => germanShrunkenIds.includes(c.id)).forEach(c => {
+    gaGe.innerHTML += makeVictimCard(c);
+  });
+}
+
+init();
+</script>
+</body>
+</html>

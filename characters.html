@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Characters — VortexFoods™ Wiki</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  .profile-section { display: none; }
+  .profile-section.active { display: block; }
+  .directory-section { display: block; }
+  .directory-section.hidden { display: none; }
+</style>
+</head>
+<body>
+
+<div id="topbar"></div>
+
+<div class="wiki-layout">
+  <nav id="sidebar"></nav>
+  <main id="content">
+
+    <!-- DIRECTORY VIEW -->
+    <div class="directory-section" id="directory">
+      <div class="page-eyebrow">Encyclopedia</div>
+      <div class="page-title">All Characters</div>
+
+      <div class="callout">
+        Click any character card to view their full profile. All characters are fictional adults aged 18 or older. <strong>101 characters</strong> documented across both settings and canon guest stories.
+      </div>
+
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab(this,'tab-german')">German Setting</button>
+        <button class="tab-btn" onclick="switchTab(this,'tab-american')">American Setting</button>
+        <button class="tab-btn" onclick="switchTab(this,'tab-guest')">Canon Guest</button>
+        <button class="tab-btn" onclick="switchTab(this,'tab-shrunken')">💀 Shrunken People</button>
+        <button class="tab-btn" onclick="switchTab(this,'tab-table')">Full Table</button>
+      </div>
+
+      <div class="tab-panel active" id="tab-german">
+        <div class="char-grid" id="grid-german"></div>
+      </div>
+      <div class="tab-panel" id="tab-american">
+        <div class="char-grid" id="grid-american"></div>
+      </div>
+      <div class="tab-panel" id="tab-guest">
+        <div class="char-grid" id="grid-guest"></div>
+      </div>
+
+      <!-- SHRUNKEN PEOPLE TAB -->
+      <div class="tab-panel" id="tab-shrunken">
+        <div class="callout" style="margin-bottom:1.2rem;">
+          Shrunken characters are named individuals confirmed to appear in a shrunken, packaged state as VortexFoods™ products. They are grouped by nationality. Click any card for a full profile, or visit the <a href="shrunken.html" style="color:var(--red);">Shrunken Characters</a> page for full analysis.
+        </div>
+
+        <!-- Shrunken Americans -->
+        <div style="display:flex;align-items:center;gap:0.7rem;margin:1.5rem 0 0.7rem;padding-bottom:0.4rem;border-bottom:2px solid var(--border);">
+          <span style="font-size:1.5rem;">🇺🇸</span>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:0.08em;color:var(--cream);">Shrunken Americans</div>
+            <div style="font-size:0.79rem;color:var(--faint);font-style:italic;">US nationals — packaged in the American Setting</div>
+          </div>
+          <span style="margin-left:auto;font-family:'Space Mono',monospace;font-size:7.5px;letter-spacing:0.15em;text-transform:uppercase;color:var(--red);">19 Documented</span>
+        </div>
+        <div class="char-grid" id="grid-shrunken-american"></div>
+
+        <!-- Shrunken Germans -->
+        <div style="display:flex;align-items:center;gap:0.7rem;margin:2rem 0 0.7rem;padding-bottom:0.4rem;border-bottom:2px solid var(--border);">
+          <span style="font-size:1.5rem;">🇩🇪</span>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:0.08em;color:var(--cream);">Shrunken Germans</div>
+            <div style="font-size:0.79rem;color:var(--faint);font-style:italic;">German nationals — intercepted, shrunk, sold as Vortex product</div>
+          </div>
+          <span style="margin-left:auto;font-family:'Space Mono',monospace;font-size:7.5px;letter-spacing:0.15em;text-transform:uppercase;color:var(--red);">3 Documented</span>
+        </div>
+        <div class="char-grid" id="grid-shrunken-german"></div>
+
+        <p style="font-size:0.83rem;color:var(--muted);font-style:italic;margin-top:1.2rem;border-top:1px solid var(--border);padding-top:0.8rem;">
+          Anonymous victims — individuals consumed without confirmed names — are not listed here. Their estimated numbers are noted on individual predator character profiles. See <a href="shrunken.html" style="color:var(--red);">Shrunken Characters</a> for predator kill count tables and full context.
+        </p>
+      </div>
+
+      <div class="tab-panel" id="tab-table">
+        <table class="wiki-table">
+          <thead><tr><th>Name</th><th>Nationality</th><th>Occupation</th><th>First Appearance</th><th>Status</th></tr></thead>
+          <tbody id="all-table"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PROFILE VIEW (shown when hash is set) -->
+    <div class="profile-section" id="profile-view"></div>
+
+  </main>
+</div>
+
+<footer>COPYRIGHT © VORTEXFOODSTM 2020–2025 &bull; UNOFFICIAL FAN WIKI &bull; ALL CHARACTERS FICTIONAL &bull; ALL CHARACTERS 18+</footer>
+
+<script src="data.js"></script>
+<script>
+
+function switchTab(btn, tabId) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+}
+
+function buildMeasTable(c) {
+  if (c.height === 'Unknown') return '';
+  return `
+    <div class="infobox-meas">
+      <div class="infobox-meas-label">Measurements</div>
+      <table class="wiki-table" style="margin:0;font-size:0.8rem;">
+        <tr><td>Height</td><td>${c.height}</td></tr>
+        <tr><td>Weight</td><td>${c.weight}</td></tr>
+        <tr><td>Chest</td><td>${c.chest}</td></tr>
+        <tr><td>Waist</td><td>${c.waist}</td></tr>
+        <tr><td>Hips</td><td>${c.hips}</td></tr>
+      </table>
+    </div>`;
+}
+
+function buildPercentageBar(label, value, color = '#c0392b') {
+  return `
+    <div style="margin-bottom:0.7rem;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:0.3rem;font-size:0.8rem;">
+        <span style="color:var(--cream);font-weight:500;">${label}</span>
+        <span style="color:var(--muted);font-family:'Space Mono',monospace;">${value}%</span>
+      </div>
+      <div style="width:100%;height:8px;background:var(--border);border-radius:4px;overflow:hidden;">
+        <div style="width:${value}%;height:100%;background:${color};transition:width 0.3s ease;"></div>
+      </div>
+    </div>`;
+}
+
+function buildPercentageBars(c) {
+  const isShrunken = shrunkenVictims.includes(c);
+  
+  // Predator bars
+  if (typeof c.shrinkieCravings !== 'undefined') {
+    return `
+      <h2 class="sh">Predator Traits</h2>
+      ${buildPercentageBar('Shrinkie Cravings', c.shrinkieCravings)}
+      ${buildPercentageBar('Cruelty', c.cruelty)}
+      ${buildPercentageBar('Playfulness', c.playfulness)}
+      ${buildPercentageBar('Intimate Behavior', c.intimateBehavior)}
+      ${buildPercentageBar('Supports Vortex/Righteousness', c.supportsVortex)}
+    `;
+  }
+  
+  // Prey bars
+  if (typeof c.intelligence !== 'undefined' && isShrunken) {
+    return `
+      <h2 class="sh">Prey Traits</h2>
+      ${buildPercentageBar('Intelligence', c.intelligence, '#3498db')}
+      ${buildPercentageBar('Fear', c.fear, '#e74c3c')}
+      ${buildPercentageBar('Vocalness', c.vocalness, '#f39c12')}
+      ${buildPercentageBar('Obedient', c.obedient, '#2ecc71')}
+      ${buildPercentageBar('Desire', c.desire, '#9b59b6')}
+    `;
+  }
+  
+  return '';
+}
+
+function buildProfile(c) {
+  const isShrunken = shrunkenVictims.includes(c);
+
+  let victimsHtml = '';
+  if (c.victims && c.victims.length > 0) {
+    victimsHtml = `<h2 class="sh">Named Victims</h2>
+      <ul class="victims-list">
+        ${c.victims.map(v => `<li>${v}</li>`).join('')}
+      </ul>
+      ${c.estimatedAnonymousKills ? `<p style="font-size:0.85rem;font-style:italic;color:var(--muted);">Plus approximately <strong style="color:var(--red)">${c.estimatedAnonymousKills}</strong> unnamed anonymous victims (estimated).</p>` : ''}`;
+  }
+
+  let iconicQuoteHtml = '';
+  if (c.iconicQuote) {
+    iconicQuoteHtml = `
+      <div style="margin:1.5rem 0;padding:1rem;background:rgba(192,57,43,0.1);border-left:3px solid var(--red);border-radius:4px;">
+        <div style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--red);margin-bottom:0.4rem;">Iconic Quote</div>
+        <div style="font-style:italic;color:var(--cream);">${c.iconicQuote}</div>
+      </div>`;
+  }
+
+  const percentageBarsHtml = buildPercentageBars(c);
+
+  return `
+    <div class="char-profile-nav">
+      <a href="characters.html">← All Characters</a>
+      <span>/</span>
+      <span style="color:var(--red)">${c.setting}</span>
+      <span>/</span>
+      <span>${c.name}</span>
+    </div>
+    <div class="page-eyebrow">${c.setting} Character</div>
+    <div class="page-title">${c.name}</div>
+    <div class="clearfix">
+      <div class="infobox">
+        <div class="infobox-title">${c.name}</div>
+        <table>
+          <tr><td>Status</td><td>${badgeHTML(c.status)}</td></tr>
+          <tr><td>Birthday</td><td>${c.birthday}</td></tr>
+          <tr><td>Gender</td><td>${c.gender}</td></tr>
+          <tr><td>Nationality</td><td>${c.nationality}</td></tr>
+          <tr><td>Occupation</td><td>${c.occupation}</td></tr>
+          ${!isShrunken ? `<tr><td>Hair</td><td>${c.hair}</td></tr><tr><td>Eyes</td><td>${c.eyes}</td></tr>` : ''}
+          <tr><td>First Seen</td><td><em>${c.firstAppearance}</em></td></tr>
+          ${isShrunken ? `<tr><td>Cause of death</td><td style="color:#e87070">${c.deathCause || '—'}</td></tr><tr><td>Killed by</td><td style="color:#e87070">${c.killer || '—'}</td></tr>` : ''}
+        </table>
+        ${buildMeasTable(c)}
+      </div>
+
+      ${iconicQuoteHtml}
+
+      <h2 class="sh">Biography</h2>
+      <p>${c.bio}</p>
+
+      ${percentageBarsHtml}
+
+      ${victimsHtml}
+
+      <h2 class="sh">Story Appearances</h2>
+      <ul class="story-appear-list">
+        ${c.stories.map(s => `<li>${s}</li>`).join('')}
+      </ul>
+    </div>`;
+}
+
+function showProfile(id) {
+  const all = allCharacters();
+  const char = all.find(c => c.id === id);
+  if (!char) return false;
+
+  document.getElementById('directory').classList.add('hidden');
+  const pv = document.getElementById('profile-view');
+  pv.innerHTML = buildProfile(char);
+  pv.classList.add('active', 'fade-in');
+  document.title = `${char.name} — VortexFoods™ Wiki`;
+  window.scrollTo(0, 0);
+  return true;
+}
+
+function showDirectory() {
+  document.getElementById('directory').classList.remove('hidden');
+  const pv = document.getElementById('profile-view');
+  pv.classList.remove('active');
+  pv.innerHTML = '';
+  document.title = 'Characters — VortexFoods™ Wiki';
+}
+
+let initDone = false;
+
+function handleHash() {
+  // Don't respond to hash events that fire before init() finishes building data
+  if (!initDone) return;
+  const hash = window.location.hash.replace('#', '');
+  if (hash) {
+    if (!showProfile(hash)) showDirectory();
+  } else {
+    showDirectory();
+  }
+}
+
+const americanShrunkenIds = [
+  'brian','megan-sanders','timothy-walker',
+  'paige-wright','dylan','miguel','jordan','tyler','diane',
+  'arthur',
+  'joe-gunderson','nicole-barnes','scott-chapman','marcus-chen','harper-bennett','monica-baker','alex-baker','kyle-edwards','checking-out-main-character'
+];
+const germanShrunkenIds = ['max','thilo-busch','heiko-brandt'];
+
+function init() {
+  renderNav('characters.html');
+
+  // Build grids
+  germanCharacters.forEach(c => {
+    document.getElementById('grid-german').innerHTML += makeCharCard(c);
+  });
+  americanCharacters.forEach(c => {
+    document.getElementById('grid-american').innerHTML += makeCharCard(c);
+  });
+  guestCharacters.forEach(c => {
+    document.getElementById('grid-guest').innerHTML += makeCharCard(c);
+  });
+
+  // Shrunken nationality grids
+  shrunkenVictims.filter(c => americanShrunkenIds.includes(c.id)).forEach(c => {
+    document.getElementById('grid-shrunken-american').innerHTML += makeCharCard(c);
+  });
+  shrunkenVictims.filter(c => germanShrunkenIds.includes(c.id)).forEach(c => {
+    document.getElementById('grid-shrunken-german').innerHTML += makeCharCard(c);
+  });
+
+  // Build full table
+  const tbody = document.getElementById('all-table');
+  allCharacters().forEach(c => {
+    tbody.innerHTML += `<tr>
+      <td><a href="characters.html#${c.id}">${c.name}</a></td>
+      <td>${c.nationality}</td>
+      <td>${c.occupation}</td>
+      <td><em>${c.firstAppearance}</em></td>
+      <td>${badgeHTML(c.status)}</td>
+    </tr>`;
+  });
+
+  // Mark init complete, then handle the initial hash
+  initDone = true;
+  const hash = window.location.hash.replace('#', '');
+  if (hash) {
+    if (!showProfile(hash)) showDirectory();
+  } else {
+    showDirectory();
+  }
+}
+
+window.addEventListener('hashchange', handleHash);
+init();
+</script>
+</body>
+</html>

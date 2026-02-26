@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All Stories — VortexFoods™ Wiki</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="topbar"></div>
+
+<div class="wiki-layout">
+  <nav id="sidebar"></nav>
+  <main id="content" class="fade-in">
+
+    <div class="page-eyebrow">Fiction</div>
+    <div class="page-title">All Stories</div>
+
+    <p>Stories are listed in chronological order within each setting, which may differ from publication order. The recommended reading order for newcomers is publication order as listed on Eka's Portal, Giantess World, DeviantArt, and SizeFiction.</p>
+
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab(this,'tab-german')">🇩🇪 German Setting</button>
+      <button class="tab-btn" onclick="switchTab(this,'tab-american')">🇺🇸 American Setting</button>
+      <button class="tab-btn" onclick="switchTab(this,'tab-canon')">✍️ Canon Guest</button>
+    </div>
+
+    <div class="tab-panel active" id="tab-german">
+      <p style="margin-bottom:1rem;color:var(--faint);font-size:0.9rem;">19 stories · The primary storyline, set in a German university city. <a href="german.html" style="color:var(--red);">View German Setting page →</a></p>
+      <div id="list-german"></div>
+    </div>
+
+    <div class="tab-panel" id="tab-american">
+      <p style="margin-bottom:1rem;color:var(--faint);font-size:0.9rem;">5 stories · Military, activism, and corporate power in the United States. <a href="american.html" style="color:var(--red);">View American Setting page →</a></p>
+      <div id="list-american"></div>
+    </div>
+
+    <div class="tab-panel" id="tab-canon">
+      <div class="callout">These stories were written by guest author <strong>Marius-the-Mage</strong> with the permission of the original creator. They are considered fully canonical within the VortexFoods™ universe. <a href="canon.html" style="color:var(--red);">View Canon Guest Stories page →</a></div>
+      <div id="list-canon"></div>
+    </div>
+
+  </main>
+</div>
+
+<footer>COPYRIGHT © VORTEXFOODSTM 2020–2025 &bull; UNOFFICIAL FAN WIKI &bull; ALL CHARACTERS FICTIONAL &bull; ALL CHARACTERS 18+</footer>
+
+<script src="data.js"></script>
+<script>
+
+function switchTab(btn, tabId) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+}
+
+function init() {
+  renderNav('stories.html');
+
+  const lg = document.getElementById('list-german');
+  const la = document.getElementById('list-american');
+  const lc = document.getElementById('list-canon');
+
+  germanStories.forEach(s => lg.innerHTML += makeStoryCard(s, 'German Setting'));
+  americanStories.forEach(s => la.innerHTML += makeStoryCard(s, 'American Setting'));
+  canonStories.forEach(s => lc.innerHTML += makeStoryCard(s, 'Canon Guest'));
+}
+
+init();
+</script>
+</body>
+</html>
